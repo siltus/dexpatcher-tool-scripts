@@ -1,13 +1,15 @@
 #!/bin/bash
 
 set -e
-source "$(dirname "$(readlink -f "$0")")/dxp.config"
+source "$(dirname "$(greadlink -f "$0")")/dxp.config"
 
 dxp-test-setup
 
 rm -rf bin/*
 
-find src -type f -name "*.java" -print0 | xargs -0 --no-run-if-empty javac -cp "$dxp_android_libs:$dxp_dexpatcher_annotation_jar:source.jar" -sourcepath src -d bin
+find src -type f -name "*.java" -print0 | gxargs -0 --no-run-if-empty javac -cp "$dxp_android_libs:$dxp_dexpatcher_annotation_jar:source.jar" -sourcepath src -d bin -source 1.7 -target 1.7 
+
+echo "running dxp-dx"
 
 dxp-dx --dex --output patch.dex $dxp_dexpatcher_annotation_jar bin
 

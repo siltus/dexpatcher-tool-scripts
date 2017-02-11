@@ -2,7 +2,7 @@
 
 set -e
 
-base_dir="$(dirname "$(readlink -f "$0")")"
+base_dir="$(dirname "$(greadlink -f "$0")")"
 base_dir="${base_dir%/}"
 
 dexpatcher_dir="$base_dir"
